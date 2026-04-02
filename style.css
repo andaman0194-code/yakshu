@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Playfair Display', serif;
+    
+    /* THE FIX: Replaced the bright white with a deep Blue-to-Black gradient */
+    background: linear-gradient(135deg, #081F5C 0%, #050505 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    
+    /* THE FIX: Changed text to pure white */
+    color: #ffffff; 
+    
+    overflow: hidden; 
+    cursor: pointer; 
+}
+
+/* Slowly moving background for a calming effect */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#instruction {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    
+    /* Changed to a soft blue so it is visible but not distracting */
+    color: #4a90e2; 
+    letter-spacing: 2px;
+    opacity: 0.8;
+    z-index: 100;
+    pointer-events: none;
+}
+
+#story-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Base style for all slides - hidden by default */
+.slide {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(30px); /* Start slightly lower */
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    pointer-events: none;
+}
+
+/* The active slide becomes visible and floats up into place */
+.slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 10;
+}
+
+/* Styling for the photos */
+.image-frame {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    background-color: #fff; /* Placeholder if image is missing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures photos fill the box perfectly without stretching */
+}
+
+/* Styling for the text */
+.message {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    padding: 0 20px;
+    
+    /* Added a strong black drop-shadow so the text is readable even if it overlaps a bright photo */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.large-text {
+    font-size: 2.5rem;
+}
+
+button {
+    margin-top: 40px;
+    padding: 12px 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    background-color: transparent;
+    
+    /* Updated button colors to match the dark theme */
+    color: #ffffff;
+    border: 2px solid #4a90e2; 
+    
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a90e2; 
+    color: #050505;
+}
+
+/* --- 1. THE HIDDEN VOID (Layer 1) --- */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #050505; /* Pitch Black */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    overflow: hidden; /* Prevents scrollbars when the page breaks */
+}
+
+.void-message {
+    text-align: center;
+    z-index: 1; 
+}
+
+.void-message h1 {
+    color: #800000; /* Deep Red */
+    font-size: 3rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(128, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.void-message p {
+    color: #4a90e2; /* Calming Blue */
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.return-btn {
+    background: transparent;
+    border: 1px solid #4a90e2;
+    color: #4a90e2;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.return-btn:hover {
+    background: #4a90e2;
+    color: #050505;
+}
+
+/* --- 2. THE ILLUSION PAGE (Layers 2 & 3) --- */
+.world-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #081F5C; /* Midnight Blue */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.5s ease;
+}
+
+/* The magic diagonal cut */
+#top-half {
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 65%);
+}
+
+#bottom-half {
+    clip-path: polygon(0 65%, 100% 35%, 100% 100%, 0 100%);
+}
+
+.world-content {
+    position: absolute; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.world-content p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.bankai-btn {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.bankai-btn:hover {
+    background: #800000;
+    border-color: #800000;
+    box-shadow: 0 0 15px rgba(128, 0, 0, 0.5);
+    transform: scale(1.05);
+}
+
+/* --- 3. THE ANIMATIONS --- */
+#slash-line {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200vw; 
+    height: 4px;
+    background: #fff;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.9), 0 0 50px 15px #4a90e2; 
+    transform: translate(-50%, -50%) rotate(-17deg) scaleX(0); 
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1;
+}
+
+/* Triggered by JS */
+.slash-active {
+    animation: slashStrike 0.3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes slashStrike {
+    0% { transform: translate(-50%, -50%) rotate(-17deg) scaleX(0); opacity: 1; }
+    50% { transform: translate(-50%, -50%) rotate(-17deg) scaleX(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) rotate(-17deg) scaleX(1); opacity: 0; }
+}
+
+.shake {
+    animation: screenShake 0.3s ease-in-out;
+}
+
+@keyframes screenShake {
+    0% { transform: translate(2px, 2px) rotate(0deg); }
+    20% { transform: translate(-10px, -5px) rotate(-1deg); }
+    40% { transform: translate(10px, 5px) rotate(1deg); }
+    60% { transform: translate(-10px, -5px) rotate(-1deg); }
+    80% { transform: translate(10px, 5px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Pushes the broken pieces apart */
+.shatter-top {
+    transform: translate(-30px, -50px) rotate(-2deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shatter-bottom {
+    transform: translate(30px, 50px) rotate(2deg);
+    opacity: 0;
+    pointer-events: none;
+}
